@@ -1,5 +1,6 @@
 library(dplyr)
 library(ggplot2)
+library(sigmoid)
 
 # Function to make a recommendation based on user input
 recommend <- function(state, tier_pref, up_co, down_co, latency_co){
@@ -49,6 +50,9 @@ recommend <- function(state, tier_pref, up_co, down_co, latency_co){
     z_lat = -1 * ((mean(i$All.hour.trimmed.mean.latency) - mean(data$All.hour.trimmed.mean.latency)) / sd(data$All.hour.trimmed.mean.latency))
     
     current_score = (up_co * z_up) + (down_co * z_down) + (latency_co * z_lat)
+    
+    # Now we calculate the sigmoid value for a better representation of the scores
+    current_score = sigmoid(current_score)
 
     # Appending with each iteration
     providers_score <- c(providers_score, current_score)

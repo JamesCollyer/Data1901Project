@@ -4,6 +4,7 @@ library(DT)
 library(tidyverse)
 library(scales)
 library(dplyr)
+library(sigmoid)
 
 source("model.r")
 
