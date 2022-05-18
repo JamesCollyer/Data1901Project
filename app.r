@@ -3,6 +3,9 @@ library(shinythemes)
 library(DT)
 library(tidyverse)
 library(scales)
+library(dplyr)
+
+source("model.r")
 
 ui <- fluidPage(theme = shinytheme("flatly"),
                 navbarPage(
@@ -39,9 +42,10 @@ ui <- fluidPage(theme = shinytheme("flatly"),
                            ),
                           
                            mainPanel(
-                             tags$label(h3("Best Provider:")),
+                             tags$label(h3("Provider Comparison:")),
                              verbatimTextOutput("result"),
-                             tableOutput('tabledata')
+                             
+                             plotOutput("comparison")
                              
                            )
                   ),
@@ -52,22 +56,34 @@ ui <- fluidPage(theme = shinytheme("flatly"),
                              
                            
                            )),
-                  
-                  
                 )
-                
-              
 )
 
 server <- function(input, output, session) {
-  winnerrr = "Prov"
+
+  UI_input <- reactive ({
+   
+   # Calculate recommendation
+   rec_plot <- recommend(input$state_in, input$tier_in, input$up_pref_in, input$down_pref_in, input$lat_pref_in)
+   print(rec_plot)
+
+  })
+  
+  # Text box
   output$result <- renderPrint({
     if(input$submittion>0){
-      isolate(winnerrr)
+      isolate("Calculation complete, best provider has the highest score")
     }
     else{
       return("Ready to make recommendation")
     }
+  })
+  
+  # Display Plot
+  output$comparison <- renderPlot({
+    if (input$submittion>0) { 
+      isolate(UI_input())
+    } 
   })
   
 }
