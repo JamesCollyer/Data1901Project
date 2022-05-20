@@ -83,6 +83,10 @@ recommend <- function(state, tier_pref, up_co, down_co, latency_co){
 
 }
 
+
+
+
+
 # Function to produce evidence plot
 # This is simply a version of the recommend function without the sigmoid function
 evidence <- function(state, tier_pref, up_co, down_co, latency_co){

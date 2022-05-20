@@ -38,13 +38,13 @@ ui <- fluidPage(theme = shinytheme("cosmo"),
                   tabPanel("Introduction",
                            sidebarPanel(
                              p(class = "top_1", "Company Description"),
-                             p(class = "text_normal", "Third party company that specializes in making fligh plan recommendations to travelers.
-                               They wish to expand into the internett provider recommendation space."),
+                             p(class = "text_normal", "Third party company that specialises in making flight plan recommendations to travellers.
+                               They wish to expand into the internet provider recommendation space."),
                              p(class = "top_1", "Recommendation"),
-                             p(class = "text_normal", "The provided tool allows for a visualy appealing ranking of the providers in the customers area.
+                             p(class = "text_normal", "The provided tool allows for a visually appealing ranking of the providers in the customers area.
                                The tool can be directly provided for customer use, or the information it provides may serve as the foundation of a recommendation.
                                The rankings are based on three factors; upload-speed, download-speed and latency.
-                               It also allows for the user to input an importance weighting for each of these that will be reflected in the ranking."),
+                               It also allows for the user to input an importance scalar for each of these that will have an impact on the calculation and be reflected in the ranking."),
                              width = 3
                              
                            ),
@@ -90,18 +90,47 @@ ui <- fluidPage(theme = shinytheme("cosmo"),
                   tabPanel("Evidence",
                            sidebarPanel(
                              p(class = "top_1", "Explanation/Evidence"),
-                             p(class = "text_normal", "The calculations are based on soandso.
-                               they are made soandso.
-                               as time passes the tool becomes less valid/applicable.
-                               Some cat less inputs"),
+                             p(class = "text_normal", "The ranking calculations are based on the various providers performance in three categories; upload-speed, download-speed and Latency.
+                             To apply an equal importance/weighting to each of these categories we take the z-scores.
+                             In simple terms this is a way of quantifying how much better or worse each provider performs than the mean in a standardised manner.
+                             This process will leave providers that are below average with a negative score. This is displayed in the plot on the righ hand side of this page. To avoid this we plug the z-scores into the Sigmoid function.
+                             This is a simple mathematical conversion that leaves all the scores in the range of 0 to 1.
+                             A poor/negative z-score will evaluate to a low final score and a high/positive z-score will evaluate to final score that approaches 1."),
+                             
+                             p(class = "top_1", "Limitations"),
+                             p(class = "text_normal", "As time passes the reliability and validity of the calculations will decrease. This is due to the calculations being based on data from December 2021.
+                               Some sub categories have limited data points available and thus the ranking will be less robust and meaningful."),
                              width = 4
-                           
                            ),
                            
                            mainPanel(
-                             p(class = "top_2", "Plot without using the sigmoid function. State: All, Tier: All, Level of concern: 1"),
+                             p(class = "top_2", "Plot without using the Sigmoid function. State: All, Tier: All, Level of concern: 1"),
                              plotOutput("evidence"), width = 8
-                           ))
+                           )
+                ),
+                
+                tabPanel("Acknowledgments",
+                         sidebarPanel(
+                           p(class = "top_1", "Acknowledgments"),
+                           
+                           p(class = "text_normal", "RStudio, (2021), 'shinyapps.io user guide', URL:"),
+                           url <- a("https://docs.rstudio.com/shinyapps.io/", href="https://docs.rstudio.com/shinyapps.io/"),
+                           
+                           p(class = "text_normal", "Tutorialspoint, (2022), 'R - Functions', URL:"),
+                           url <- a("https://www.tutorialspoint.com/r/r_functions.htm", href="https://www.tutorialspoint.com/r/r_functions.htm"),
+                           
+                           p(class = "text_normal", "GGplot, (N/A), 'Modify axis, legend, and plot labels', URL:"),
+                           url <- a("https://ggplot2.tidyverse.org/reference/labs.html", href="https://ggplot2.tidyverse.org/reference/labs.html"),
+                           
+                           p(class = "top_1", "Data Source"),
+                           
+                           p(class = "text_normal", "Australian Competition and Consumer Commission, (2021). 'Measuring Broadband Australia Report 15 Dataset Release'. URL:"),
+                           url <- a("https://data.gov.au/data/dataset/measuring-broadband-australia-report-15-dataset-release", href="https://data.gov.au/data/dataset/measuring-broadband-australia-report-15-dataset-release"),
+                           
+                           width = 5
+                         )
+                  
+                )
                 )
 )
 
