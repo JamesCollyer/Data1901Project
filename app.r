@@ -51,8 +51,9 @@ ui <- fluidPage(theme = shinytheme("cosmo"),
                            
                            mainPanel(
                              p(class = "top_2", "Introduction Video:"),
+                             url <- a("https://www.youtube.com/watch?v=mmLyZ0xHlOM", href="https://www.youtube.com/watch?v=mmLyZ0xHlOM"),
                              tabsetPanel(type = "tab",
-                                         tabPanel(HTML('<iframe width="999" height="666" src="https://www.youtube.com/embed/fJXzIU4vmuA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'))
+                                         tabPanel(HTML('<iframe width="900" height="599" src="https://www.youtube.com/embed/mmLyZ0xHlOM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'))
                              )
                            )
                   ),
@@ -99,7 +100,11 @@ ui <- fluidPage(theme = shinytheme("cosmo"),
                              
                              p(class = "top_1", "Limitations"),
                              p(class = "text_normal", "As time passes the reliability and validity of the calculations will decrease. This is due to the calculations being based on data from December 2021.
-                               Some sub categories have limited data points available and thus the ranking will be less robust and meaningful."),
+                               Some sub categories have limited data points available and thus the ranking will be less robust and meaningful.
+                               The justification for the validity of taking the z-scores is that the data is normally distributed and we know the standard deviation of each of the subcategories.
+                               However, in some subcategories there are less than 30 observations and the distribution when there are minimal observations will tend to be less normal.
+                               Thus the results produced in these subcategories should be interpreted with caution.
+                               Note that the speed tiers above 250/25 Mpbs have been removed as there was not enough data to justify any potential findings."),
                              width = 4
                            ),
                            
